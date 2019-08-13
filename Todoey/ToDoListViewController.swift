@@ -9,10 +9,13 @@
 import UIKit
 
 class ToDoListViewController: UITableViewController {
-
+  let defaulfs = UserDefaults.standard
   var itemArray = ["find mike", "Buy Eggs", "Destroy Demogogans"]
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let items = defaulfs.array(forKey: "ToDoListArray") as? [String] {
+            itemArray = items
+        }
         
     }
     //MARK - Table view Data sorce Methods
@@ -50,6 +53,8 @@ class ToDoListViewController: UITableViewController {
             //print("success!")
             //print(textField.text)
            self.itemArray.append(textField.text!)
+            self.defaulfs.set(self.itemArray, forKey: "ToDoListArray")
+        
             self.tableView.reloadData()
         }
     
